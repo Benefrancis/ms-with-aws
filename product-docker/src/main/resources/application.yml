@@ -1,0 +1,32 @@
+spring:
+  datasource:
+   url: jdbc:mariadb://localhost:3306/aws_project01?createDatabaseIfNotExist=true
+   username: root
+   password: root
+   driver-class-name: org.mariadb.jdbc.Driver
+   hikari:
+    connection-timeout: 300000
+    maximum-pool-size: 5
+    max-lifetime: 180000
+    minimum-idle: 200
+    validation-timeout: 3000
+    idle-timeout: 10000
+  jpa:
+   open-in-view: true
+   database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+   generate-ddl: true
+   properties:
+     hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      ddl-auto: update
+   show-sql: true
+
+aws:
+ region: us-east-1
+ sns:
+   topic:
+    product:
+     events:
+      arn: product-events
+   
+   
