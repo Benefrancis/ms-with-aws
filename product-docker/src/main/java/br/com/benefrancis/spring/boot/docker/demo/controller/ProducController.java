@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.benefrancis.spring.boot.docker.demo.entity.Product;
+import br.com.benefrancis.spring.boot.docker.demo.enums.EventType;
 import br.com.benefrancis.spring.boot.docker.demo.repository.ProductRepository;
+import br.com.benefrancis.spring.boot.docker.demo.service.ProductPublisher;
 
 @RestController
 @RequestMapping(value = "/api/product")
@@ -23,6 +25,9 @@ public class ProducController {
 
 	@Autowired
 	private ProductRepository repo;
+
+	@Autowired
+	private ProductPublisher publisher;
 
 	@GetMapping
 	public Iterable<Product> findAll() {
@@ -42,6 +47,7 @@ public class ProducController {
 	@PostMapping
 	public ResponseEntity<Product> save(@RequestBody Product p) {
 		Product created = repo.save(p);
+		publisher.publishProductEvent(created, EventType.PRODUCT_CREATED, "Benefrancis");
 		return ResponseEntity.ok(created);
 	}
 
@@ -50,6 +56,9 @@ public class ProducController {
 		if (repo.existsById(id)) {
 			p.setId(id);
 			Product salvo = repo.save(p);
+
+			publisher.publishProductEvent(salvo, EventType.PRODUCT_UPDATE, "Benefrancis");
+
 			return ResponseEntity.ok(salvo);
 		} else {
 			return ResponseEntity.notFound().build();
@@ -62,6 +71,9 @@ public class ProducController {
 		if (opt.isPresent()) {
 			Product deletado = opt.get();
 			repo.delete(deletado);
+
+			publisher.publishProductEvent(deletado, EventType.PRODUCT_DELETED, "Benefrancis");
+
 			return ResponseEntity.ok(deletado);
 		} else {
 			return ResponseEntity.notFound().build();
