@@ -47,8 +47,8 @@ public class Service02Stack extends Stack {
 				.serviceName("service02")
 				.cluster(cluster)
 				.cpu(512)
-				.desiredCount(2) //instâncias
-				.listenerPort(80) //Porta para acesso externo
+				.desiredCount(2) 
+				.listenerPort(80) 
 				.assignPublicIp(true) 
 				.memoryLimitMiB(1024)
 				.taskImageOptions (
