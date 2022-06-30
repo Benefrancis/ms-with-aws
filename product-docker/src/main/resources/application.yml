@@ -20,6 +20,8 @@ spring:
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       ddl-auto: update
    show-sql: true
+ # profiles:
+  #  active: local
 
 aws:
  region: us-east-1
@@ -28,5 +30,4 @@ aws:
     product:
      events:
       arn: product-events
-   
    

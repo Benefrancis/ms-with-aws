@@ -19,17 +19,18 @@ import software.amazon.awscdk.services.ecs.ScalableTaskCount;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedFargateService;
 import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskImageOptions;
 import software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck;
+import software.amazon.awscdk.services.events.targets.SnsTopic;
 import software.amazon.awscdk.services.logs.LogGroup;
 // import software.amazon.awscdk.Duration;
 // import software.amazon.awscdk.services.sqs.Queue;
 import software.constructs.Construct;
 
 public class Service01Stack extends Stack {
-	public Service01Stack(final Construct scope, final String id, Cluster cluster) {
-		this(scope, id, null, cluster);
+	public Service01Stack(final Construct scope, final String id, Cluster cluster, SnsTopic productEventsTopic) {
+		this(scope, id, null, cluster, productEventsTopic);
 	}
 
-	public Service01Stack(final Construct scope, final String id, final StackProps props, Cluster cluster) {
+	public Service01Stack(final Construct scope, final String id, final StackProps props, Cluster cluster,SnsTopic productEventsTopic) {
 		super(scope, id, props);
 
 		// @formatter:off
@@ -38,7 +39,10 @@ public class Service01Stack extends Stack {
  		envVariables.put("SPRING_DATASOURCE_URL", "jdbc:mariadb://"+Fn.importValue("rds-endpoint")+":3306/aws_project01?createDatabaseIfNotExist=true");
  		envVariables.put("SPRING_DATASOURCE_USERNAME","admin");
  		envVariables.put("SPRING_DATASOURCE_PASSWORD", Fn.importValue("rds-password"));
-		
+ 		
+ 		envVariables.put("AWS_REGION", "us-east-1");
+ 		envVariables.put("AWS_SNS_TOPIC_PRODUCT_EVENTS_ARN", productEventsTopic.getTopic().getTopicArn());
+ 		
  		// The code that defines your stack goes here
 		ApplicationLoadBalancedFargateService service01 = 
 				ApplicationLoadBalancedFargateService
@@ -54,7 +58,7 @@ public class Service01Stack extends Stack {
 				.taskImageOptions (
 						ApplicationLoadBalancedTaskImageOptions.builder()
 						.containerName("spring-boot-docker")
-						.image(ContainerImage.fromRegistry ("benefrancis/spring-boot-docker:0.0.13"))//Nome da imagem no hub do docker
+						.image(ContainerImage.fromRegistry ("benefrancis/spring-boot-docker:0.0.14"))//Nome da imagem no hub do docker
 						.containerPort(8080)
 						.logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder() //Especificando onde os logs ficarão. Redirecionados ao serviço cloud watch
 							.logGroup(LogGroup.Builder.create (this,"service01LogGroup") //Grupo do Log
@@ -99,6 +103,9 @@ public class Service01Stack extends Stack {
 	                    .scaleInCooldown(Duration.seconds(300))
 	                    .scaleOutCooldown(Duration.seconds(60))
 	                    .build());
+		
+		
+		productEventsTopic.getTopic().grantPublish(service01.getTaskDefinition().getTaskRole());
 		
 		// @formatter:on
 
