@@ -28,6 +28,7 @@ public class CursoAwsCdkApp {
 				snsStack.getPRODUCT_EVENTS_TOPIC());
 		service02Stack.addDependency(clusterStack);
 		service02Stack.addDependency(snsStack);
+	 
 
 		app.synth();
 	}

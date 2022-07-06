@@ -20,6 +20,9 @@ import software.amazon.awscdk.services.ecs.patterns.ApplicationLoadBalancedTaskI
 import software.amazon.awscdk.services.elasticloadbalancingv2.HealthCheck;
 import software.amazon.awscdk.services.events.targets.SnsTopic;
 import software.amazon.awscdk.services.logs.LogGroup;
+import software.amazon.awscdk.services.sns.subscriptions.SqsSubscription;
+import software.amazon.awscdk.services.sqs.DeadLetterQueue;
+import software.amazon.awscdk.services.sqs.Queue;
 import software.constructs.Construct;
 
 public class Service02Stack extends Stack {
@@ -32,12 +35,43 @@ public class Service02Stack extends Stack {
 		super(scope, id, props);
 
 		// @formatter:off
+		
+		//Fila quando ocorrer três erros
+		Queue productEventsDlq = Queue.Builder
+				.create(this, "ProductEventsDlq")
+				.queueName("product-events-dlq")
+				.build();
+	
+		DeadLetterQueue deadLetterQueue = DeadLetterQueue.builder()
+				.queue(productEventsDlq)
+				.maxReceiveCount(3)
+				.build();
+		
+		Queue productEventsQueue = Queue.Builder
+				.create(this, "ProductEvents")
+				.queueName("product-events")
+				.deadLetterQueue(deadLetterQueue)
+				.build();
+		
+		//inscrever fila no topico
+		SqsSubscription sqsSubscription = SqsSubscription.Builder.create(productEventsQueue).build();
+		//determinando o topico
+		productEventsTopic.getTopic().addSubscription(sqsSubscription);
  		
  		Map<String,String> envVariables = new HashMap<>();
  
  		
  		envVariables.put("AWS_REGION", "us-east-1");
  		envVariables.put("AWS_SNS_TOPIC_PRODUCT_EVENTS_ARN", productEventsTopic.getTopic().getTopicArn());
+ 		
+ 		envVariables.put("AWS_SQS_QUEUE_PRODUCT_EVENTS_NAME", productEventsQueue.getQueueName());
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
  		
  		// The code that defines your stack goes here
 		ApplicationLoadBalancedFargateService service02 = 
