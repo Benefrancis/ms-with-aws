@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductEventConsumer {
-	private static final Logger log = LoggerFactory.getLogger(ProductEventConsumer.class);
+	private static final Logger log = LoggerFactory.getLogger(ProductEventConsumer.class); 
+	
+	
 }
