@@ -31,9 +31,11 @@ public class SnsCreate {
 				.EndpointConfiguration("http://localhost:4566", Regions.US_EAST_1.getName()))
 				.withCredentials(new DefaultAWSCredentialsProviderChain())
 				.build();
+		
 		CreateTopicRequest reateTopicRequest = new CreateTopicRequest("product-events");
 		this.productEventsTopic = this.snsClient.createTopic(reateTopicRequest).getTopicArn();
 		// @formatter:on
+		
 		log.info("SNS TOPIC ARN: {}", this.productEventsTopic);
 	}
 

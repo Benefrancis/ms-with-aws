@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.benefrancis</groupId>
 	<artifactId>spring-boot-docker</artifactId>
-	<version>0.0.14</version>
+	<version>0.0.17</version>
 	<name>spring-boot-docker</name>
 	<description>Dockerize spring boot application</description>
 	<properties>
@@ -49,7 +49,6 @@
 			<optional>true</optional>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sns -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
@@ -57,7 +56,26 @@
 			<version>1.12.249</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sqs</artifactId>
+			<version>1.11.887</version>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/amazon-sqs-java-messaging-lib -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>amazon-sqs-java-messaging-lib</artifactId>
+			<version>1.0.8</version>
+		</dependency>
 
 
 	</dependencies>

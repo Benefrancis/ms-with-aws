@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
+import com.amazonaws.services.sns.model.CreateTopicRequest;
 import com.amazonaws.services.sns.model.Topic;
 
 @Configuration
@@ -31,7 +32,7 @@ public class SnsConfig {
  		// @formatter:on
 
 	}
-
+	
 	@Bean(name = "productEventsTopic")
 	public Topic snsProductEventsTopic() {
 		return new Topic().withTopicArn(productEventsTopic);

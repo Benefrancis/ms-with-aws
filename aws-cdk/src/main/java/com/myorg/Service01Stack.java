@@ -58,7 +58,7 @@ public class Service01Stack extends Stack {
 				.taskImageOptions (
 						ApplicationLoadBalancedTaskImageOptions.builder()
 						.containerName("spring-boot-docker")
-						.image(ContainerImage.fromRegistry ("benefrancis/spring-boot-docker:0.0.14"))//Nome da imagem no hub do docker
+						.image(ContainerImage.fromRegistry ("benefrancis/spring-boot-docker:0.0.17"))//Nome da imagem no hub do docker
 						.containerPort(8080)
 						.logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder() //Especificando onde os logs ficarão. Redirecionados ao serviço cloud watch
 							.logGroup(LogGroup.Builder.create (this,"service01LogGroup") //Grupo do Log

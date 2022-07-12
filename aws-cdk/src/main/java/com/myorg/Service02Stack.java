@@ -88,7 +88,7 @@ public class Service02Stack extends Stack {
 				.taskImageOptions (
 						ApplicationLoadBalancedTaskImageOptions.builder()
 						.containerName("spring-boot-docker")
-						.image(ContainerImage.fromRegistry ("benefrancis/consumidor:0.0.2"))//Nome da imagem no hub do docker
+						.image(ContainerImage.fromRegistry ("benefrancis/consumidor:0.0.3"))//Nome da imagem no hub do docker
 						.containerPort(9090)
 						.logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder() //Especificando onde os logs ficarão. Redirecionados ao serviço cloud watch
 							.logGroup(LogGroup.Builder.create (this,"service02LogGroup") //Grupo do Log

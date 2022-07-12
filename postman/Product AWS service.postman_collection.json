@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "7e6442a7-62f6-4aa4-b943-cbae98b84195",
+		"name": "Product AWS service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1524675"
+	},
+	"item": [
+		{
+			"name": "Post Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"Plystation 4\",\r\n    \"model\": \"PS4\",\r\n    \"code\": \"1258315\",\r\n    \"cor\":\"branco\",\r\n    \"price\": 1999.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "Servi-Appli-C21G5Y0HXK69-194362707.us-east-1.elb.amazonaws.com/api/product",
+					"host": [
+						"Servi-Appli-C21G5Y0HXK69-194362707",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listagem de Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Servi-Appli-C21G5Y0HXK69-194362707.us-east-1.elb.amazonaws.com/api/product",
+					"host": [
+						"Servi-Appli-C21G5Y0HXK69-194362707",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"id\": 1,\r\n        \"name\": \"Playstation\",\r\n        \"model\": \"PS5\",\r\n        \"code\": \"ps5\",\r\n        \"price\": 4999.99\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://Servi-Appli-11P6S8R9P5W94-1695296415.us-east-1.elb.amazonaws.com/api/product/2",
+					"protocol": "http",
+					"host": [
+						"Servi-Appli-11P6S8R9P5W94-1695296415",
+						"us-east-1",
+						"elb",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"product",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

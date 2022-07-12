@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SnsMessage {
-
 	@JsonProperty("Message")
 	private String message;
 
@@ -16,12 +15,12 @@ public class SnsMessage {
 	private String type;
 
 	@JsonProperty("TopicArn")
-	private String tipicArn;
+	private String topicArn;
 
 	@JsonProperty("Timestamp")
 	private String timestamp;
 
 	@JsonProperty("MessageId")
 	private String messageId;
-
+ 
 }

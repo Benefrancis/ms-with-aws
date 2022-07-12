@@ -7,4 +7,5 @@ import lombok.Data;
 public class Envelope {
 	private EventType eventType;
 	private String data;
+
 }
